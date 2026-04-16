@@ -1,29 +1,39 @@
-import express from "express";
+import express, {type Application, type Request, type Response, type NextFunction} from "express";
 import profilesRouter from "./routes/profiles";
 
-const app = express();
+const app: Application = express();
 
-// ─── Global middleware ─────────────────────────────────────────────────────────
 app.use(express.json());
 
-// CORS — required by the grading script
-app.use((_req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
+app.use((_req: Request, res: Response, next: NextFunction): void => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+    if (_req.method === "OPTIONS") {
+        res.sendStatus(204);
+        return;
+    }
+
+    next();
 });
 
-// Handle pre-flight OPTIONS requests
-app.options("*", (_req, res) => {
-  res.sendStatus(204);
-});
+// app.use((_req: Request, res: Response, next: NextFunction): void => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// });
+//
+// app.options("/*", (_req: Request, res: Response): void => {
+//   res.sendStatus(204);
+// });
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+// ─── Routes ───
 app.use("/api/profiles", profilesRouter);
 
-// ─── 404 fallback ─────────────────────────────────────────────────────────────
-app.use((_req, res) => {
+// ─── 404 fallback ───
+app.use((_req: Request, res: Response): void => {
   res.status(404).json({ status: "error", message: "Route not found" });
 });
 

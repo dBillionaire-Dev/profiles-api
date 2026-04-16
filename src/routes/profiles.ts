@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-// ─── POST /api/profiles ────────────────────────────────────────────────────────
+// ─── POST /api/profiles ────
 router.post("/", async (req: Request, res: Response): Promise<void> => {
   const { name } = req.body;
 
@@ -25,7 +25,7 @@ router.post("/", async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  const trimmedName = name.trim();
+  const trimmedName: string = name.trim();
   if (trimmedName === "") {
     res.status(400).json({ status: "error", message: "Missing or empty name" });
     return;
@@ -47,7 +47,7 @@ router.post("/", async (req: Request, res: Response): Promise<void> => {
     const aggregated = await aggregateName(trimmedName);
 
     // Store in DB with a UUID v7
-    const id = uuidv7();
+    const id: string = uuidv7();
     const profile = await insertProfile(id, trimmedName, aggregated);
 
     res.status(201).json({
@@ -64,7 +64,7 @@ router.post("/", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// ─── GET /api/profiles ─────────────────────────────────────────────────────────
+// ─── GET /api/profiles ────
 router.get("/", async (req: Request, res: Response): Promise<void> => {
   const { gender, country_id, age_group } = req.query;
 
@@ -86,7 +86,7 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// ─── GET /api/profiles/:id ─────────────────────────────────────────────────────
+// ─── GET /api/profiles/:id ─────
 router.get("/:id", async (req: Request, res: Response): Promise<void> => {
   try {
     const profile = await findProfileById(req.params.id);
@@ -101,7 +101,7 @@ router.get("/:id", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// ─── DELETE /api/profiles/:id ──────────────────────────────────────────────────
+// ─── DELETE /api/profiles/:id ─────
 router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
   try {
     const deleted = await deleteProfileById(req.params.id);
@@ -116,7 +116,7 @@ router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// ─── Formatters ────────────────────────────────────────────────────────────────
+// ─── Formatters ────
 function formatProfile(p: any) {
   return {
     id: p.id,
