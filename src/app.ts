@@ -18,17 +18,6 @@ app.use((_req: Request, res: Response, next: NextFunction): void => {
     next();
 });
 
-// app.use((_req: Request, res: Response, next: NextFunction): void => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   next();
-// });
-//
-// app.options("/*", (_req: Request, res: Response): void => {
-//   res.sendStatus(204);
-// });
-
 // ─── Routes ───
 app.use("/api/profiles", profilesRouter);
 
