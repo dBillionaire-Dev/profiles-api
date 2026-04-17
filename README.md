@@ -69,7 +69,7 @@ Create a new profile. If the name already exists, returns the existing one.
 
 **Request:**
 ```json
-{ "name": "ella" }
+{ "name": "nex" }
 ```
 
 **Response (201):**
@@ -77,16 +77,16 @@ Create a new profile. If the name already exists, returns the existing one.
 {
   "status": "success",
   "data": {
-    "id": "...",
-    "name": "ella",
-    "gender": "female",
-    "gender_probability": 0.99,
-    "sample_size": 1234,
-    "age": 46,
+    "id": "019d99b0-1d75-7937-8ded-6e482ff56bfa",
+    "name": "nex",
+    "gender": "male",
+    "gender_probability": 0.81,
+    "sample_size": 532,
+    "age": 51,
     "age_group": "adult",
-    "country_id": "DK",
-    "country_probability": 0.15,
-    "created_at": "2026-04-01T12:00:00.000Z"
+    "country_id": "AO",
+    "country_probability": 0.06776679651594841,
+    "created_at": "2026-04-17T04:25:50.624Z"
   }
 }
 ```
